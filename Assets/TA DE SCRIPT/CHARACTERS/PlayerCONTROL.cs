@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
+
 public class PlayerCONTROL : MonoBehaviour
 {
     NavMeshAgent agent;
     public LayerMask WalkAble;
     Camera cam;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         cam = Camera.main;
