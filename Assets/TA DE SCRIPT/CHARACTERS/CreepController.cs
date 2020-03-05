@@ -2,19 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using NavGame.Core;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class CreepController : MonoBehaviour
+public class CreepController : ComabatGameOBJ
 {
     NavMeshAgent agent;
-    GameObject finalTarget;
-        void Awake()
+    DamageAbleGameOBJ finalTarget;
+    protected override void Awake()
     {
+        base.Awake ();
         agent = GetComponent<NavMeshAgent>();
         GameObject obj = GameObject.FindWithTag("Finish");
         if (obj != null)
         {
-            finalTarget = obj;
+            finalTarget = obj.GetComponent<DamageAbleGameOBJ>();
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (finalTarget == null)
+        {
+            return;
+        }
+        if (IsInTouch(finalTarget))
+        {
+            AttackOnCooldown(finalTarget);
         }
     }
 

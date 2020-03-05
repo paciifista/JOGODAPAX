@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using NavGame.Core;
 [RequireComponent(typeof(NavMeshAgent))]
 
-public class PlayerCONTROL : MonoBehaviour
+public class PlayerCONTROL : TouchableGameOBJ
 {
     NavMeshAgent agent;
     public LayerMask WalkAble;
