@@ -10,6 +10,8 @@ namespace NavGame.Core
     {
         float cooldown = 0f;
         float lastAttackTime;
+        
+        public OnAttackHitEvent onAttackHit;
         protected virtual void Update ()
         {
             DecreaseAttackcooldown();
@@ -21,7 +23,10 @@ namespace NavGame.Core
             {
                 cooldown = 1f / stats.attackSpeed;
                 target.TakeDamage(stats.damage);
-                AudioManager.instance.Play("enemy-hit", target.transform.position);
+                if (onAttackHit != null)
+                {
+                    onAttackHit(target.transform.position);
+                }
             }
         }
         void DecreaseAttackcooldown()

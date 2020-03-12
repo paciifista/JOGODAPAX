@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using NavGame.Core;
+using NavGame.misskiss;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class CreepController : ComabatGameOBJ
@@ -18,6 +19,8 @@ public class CreepController : ComabatGameOBJ
         {
             finalTarget = obj.GetComponent<DamageAbleGameOBJ>();
         }
+
+        onAttackHit += PlayEffects;  
     }
 
     protected override void Update()
@@ -40,5 +43,10 @@ public class CreepController : ComabatGameOBJ
         {
             agent.SetDestination(finalTarget.transform.position);
         }
+    }
+
+    void PlayEffects(Vector3 position)
+    {
+        AudioManager.instance.Play("enemy-hit",position);
     }
 }
