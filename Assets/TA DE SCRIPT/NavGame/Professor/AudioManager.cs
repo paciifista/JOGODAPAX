@@ -5,23 +5,58 @@ using UnityEngine;
 
 namespace NavGame.misskiss
 {
-    
 
 
     public class AudioManager : MonoBehaviour
     {
-        
+
+        public static AudioManager instance;
         public Clip[] clips;
 
+        Dictionary<string, AudioClip> dict = new Dictionary<string, AudioClip>();
 
-        [Serializable]
-        public class Clip
+        void Awake()
         {
-            public string name;
-            public AudioClip audio;
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
 
-
-  
+            }
         }
+
+
+        void Start()
+        {
+        foreach (Clip clip in clips)
+        {
+            dict.Add(clip.name, clip.audio);
+        }
+        }
+
+
+
+public void Play(string clipName, Vector3 position)
+{
+    if (dict.ContainsKey(clipName))
+    {
+        AudioSource.PlayClipAtPoint(dict[clipName], position);
+    }
+}
+
+
+
+[Serializable]
+public class Clip
+{
+    public string name;
+    public AudioClip audio;
+
+
+
+}
     }
 }
