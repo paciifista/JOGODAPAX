@@ -8,23 +8,23 @@ namespace NavGame.Core
     {
         
         public int currentHealth;
-        public Stats stats;
+        public DefenceStats defenceStats;
         public OnHealthChangeEvent onHealthChanged;
         public OnDiedEvent onDied;
         protected virtual void Awake ()
         {
-            currentHealth = stats.maxHealth;
+            currentHealth = defenceStats.maxHealth;
         }
         public void TakeDamage(int amount)
         {
-            amount = amount - stats.armor;
-            amount = Mathf.Clamp(amount, 1, stats.maxHealth);
+            amount = amount - defenceStats.armor;
+            amount = Mathf.Clamp(amount, 1, defenceStats.maxHealth);
 
             currentHealth -= amount;
 
             if (onHealthChanged != null)
             {
-                onHealthChanged(stats.maxHealth, currentHealth);
+                onHealthChanged(defenceStats.maxHealth, currentHealth);
             }
 
             if (currentHealth <= 0)

@@ -8,6 +8,7 @@ namespace NavGame.Core
 
     public class ComabatGameOBJ : DamageAbleGameOBJ
     {
+        public OffenceStats offenceStats;
         float cooldown = 0f;
         float lastAttackTime;
         
@@ -21,8 +22,8 @@ namespace NavGame.Core
         {
             if (cooldown <= 0f)
             {
-                cooldown = 1f / stats.attackSpeed;
-                target.TakeDamage(stats.damage);
+                cooldown = 1f / offenceStats.attackSpeed;
+                target.TakeDamage(offenceStats.damage);
                 if (onAttackHit != null)
                 {
                     onAttackHit(target.transform.position);
