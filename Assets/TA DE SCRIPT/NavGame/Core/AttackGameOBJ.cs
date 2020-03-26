@@ -65,9 +65,24 @@ namespace NavGame.Core
             {
                 DamageAbleGameOBJ obj = other.transform.parent.GetComponent<DamageAbleGameOBJ>();
                 if (!enemiesToAttack.Contains(obj))
-                enemiesToAttack.Add(obj);
+                {
+                    enemiesToAttack.Add(obj);
+                    obj.onDied += () => { enemiesToAttack.Remove(obj); };
+                }
             }
         }
+
+
+        void OnTriggerExit(Collider other)
+        {
+            if (enemyMask.Contains(other.gameObject.layer))
+            {
+                DamageAbleGameOBJ obj = other.transform.parent.GetComponent<DamageAbleGameOBJ>();
+                enemiesToAttack.Remove(obj);
+            }
+        }
+
+
     }
 
 }
