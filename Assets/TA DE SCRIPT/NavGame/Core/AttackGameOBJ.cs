@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NavGame.misskiss;
+using UnityEngine.AI;
 
 namespace NavGame.Core
 {
@@ -9,10 +10,19 @@ namespace NavGame.Core
     public class AttackGameOBJ : TouchableGameOBJ
     {
         public OffenceStats offenceStats;
+
+        protected NavMeshAgent agent;
         float cooldown = 0f;
         float lastAttackTime;
         
         public OnAttackHitEvent onAttackHit;
+
+        protected virtual void Awake()
+        {
+                    agent = GetComponent<NavMeshAgent>();
+
+        }
+
         protected virtual void Update ()
         {
             DecreaseAttackcooldown();

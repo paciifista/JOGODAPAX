@@ -5,14 +5,13 @@ using UnityEngine.AI;
 using NavGame.Core;
 using NavGame.misskiss;
 
-[RequireComponent(typeof(NavMeshAgent))]
 public class CreepController : AttackGameOBJ
 {
-    NavMeshAgent agent;
     DamageAbleGameOBJ finalTarget;
-    void Awake()
+    protected override void Awake()
     {
-    
+        base.Awake();
+
         agent = GetComponent<NavMeshAgent>();
         GameObject obj = GameObject.FindWithTag("Finish");
         if (obj != null)
@@ -20,20 +19,20 @@ public class CreepController : AttackGameOBJ
             finalTarget = obj.GetComponent<DamageAbleGameOBJ>();
         }
 
-        onAttackHit += PlayEffects;  
+        onAttackHit += PlayEffects;
     }
 
     protected override void Update()
     {
         base.Update();
-        if (finalTarget == null)
+        if (finalTarget != null)
         {
-            return;
+            if (IsInTouch(finalTarget))
+            {
+                AttackOnCooldown(finalTarget);
+            }
         }
-        if (IsInTouch(finalTarget))
-        {
-            AttackOnCooldown(finalTarget);
-        }
+
     }
 
     // Update is called once per frame
@@ -47,6 +46,6 @@ public class CreepController : AttackGameOBJ
 
     void PlayEffects(Vector3 position)
     {
-        AudioManager.instance.Play("enemy-hit",position);
+        AudioManager.instance.Play("enemy-hit", position);
     }
 }
