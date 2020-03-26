@@ -11,19 +11,25 @@ namespace NavGame.Core
     {
         public OffenceStats offenceStats;
 
+        public string[] enemyLayer;
+
+        [SerializeField]
+        protected List<DamageAbleGameOBJ> enemiesToAttack = new List<DamageAbleGameOBJ>();
+
         protected NavMeshAgent agent;
         float cooldown = 0f;
+        LayerMask enemyMask;
         float lastAttackTime;
-        
+
         public OnAttackHitEvent onAttackHit;
 
         protected virtual void Awake()
         {
-                    agent = GetComponent<NavMeshAgent>();
-
+            agent = GetComponent<NavMeshAgent>();
+            enemyMask = LayerMask.GetMask(enemyLayer);
         }
 
-        protected virtual void Update ()
+        protected virtual void Update()
         {
             DecreaseAttackcooldown();
         }
@@ -51,7 +57,17 @@ namespace NavGame.Core
             {
                 cooldown = 0f;
             }
-        } 
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (enemyMask.Contains(other.gameObject.layer))
+            {
+                DamageAbleGameOBJ obj = other.transform.parent.GetComponent<DamageAbleGameOBJ>();
+                if (!enemiesToAttack.Contains(obj))
+                enemiesToAttack.Add(obj);
+            }
+        }
     }
-    
+
 }
