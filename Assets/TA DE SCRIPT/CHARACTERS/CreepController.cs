@@ -25,10 +25,13 @@ public class CreepController : AttackGameOBJ
     protected override void Update()
     {
         base.Update();
-        if (finalTarget != null)
+        if (finalTarget != null && enemiesToAttack.Count == 0)
         {
+            agent.SetDestination(finalTarget.transform.position);
             if (IsInTouch(finalTarget))
             {
+                agent.ResetPath();
+                FaceObjectFrame(finalTarget.gameObject.transform);
                 AttackOnCooldown(finalTarget);
             }
         }

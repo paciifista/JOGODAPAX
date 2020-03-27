@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace NavGame.Core
 {
-    public class TouchableGameOBJ : MonoBehaviour
+    public class TouchableGameOBJ : BasicGameObject
    {
        public float contactRadius =0.5f;
        public bool IsInTouch(TouchableGameOBJ other)
@@ -12,6 +12,8 @@ namespace NavGame.Core
            float distance = Vector3.Distance(transform.position, other.transform.position);
            return distance < contactRadius + other.contactRadius;
        }
+
+
 
        protected virtual void OnDrawGizmosSelected()
        {
