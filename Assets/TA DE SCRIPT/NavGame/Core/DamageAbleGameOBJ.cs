@@ -9,11 +9,18 @@ namespace NavGame.Core
         
         public int currentHealth;
         public DefenceStats defenceStats;
+        public Transform damageTransform;
         public OnHealthChangeEvent onHealthChanged;
         public OnDiedEvent onDied;
+        public OnDamageTakenEvent onDamageTaken;
+
         protected virtual void Awake ()
         {
             currentHealth = defenceStats.maxHealth;
+            if (damageTransform == null)
+            {
+                damageTransform = transform;
+            }
         }
         public void TakeDamage(int amount)
         {
@@ -21,6 +28,11 @@ namespace NavGame.Core
             amount = Mathf.Clamp(amount, 1, defenceStats.maxHealth);
 
             currentHealth -= amount;
+
+            if (onDamageTaken != null)
+            {
+                onDamageTaken(damageTransform.position, amount);
+            }
 
             if (onHealthChanged != null)
             {
