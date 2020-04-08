@@ -18,8 +18,6 @@ public class CreepController : AttackGameOBJ
         {
             finalTarget = obj.GetComponent<DamageAbleGameOBJ>();
         }
-
-        onAttackHit += PlayEffects;
     }
 
     protected override void Update()
@@ -47,8 +45,4 @@ public class CreepController : AttackGameOBJ
         }
     }
 
-    void PlayEffects(Vector3 position)
-    {
-        AudioManager.instance.Play("enemy-hit", position);
-    }
 }

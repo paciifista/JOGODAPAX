@@ -981,6 +981,18 @@ MonoBehaviour:
     audio: {fileID: 8300000, guid: 507acd08c6e138e438ebc4008557cc7b, type: 3}
   - name: level-complete
     audio: {fileID: 8300000, guid: 75965f84ba253dd49be9c6a7ecd664f1, type: 3}
+  - name: splash-death1
+    audio: {fileID: 8300000, guid: 6c5e23a53eaf1c04587090e685dda06e, type: 3}
+  - name: splash-death2
+    audio: {fileID: 8300000, guid: 98fc233a03a838548948f3c00157842f, type: 3}
+  - name: splash-hit1
+    audio: {fileID: 8300000, guid: 652a1e98ff081994ca17bdeefaf42753, type: 3}
+  - name: splash-hit2
+    audio: {fileID: 8300000, guid: c17bc871095b890449808a321aeff935, type: 3}
+  - name: splash-strike1
+    audio: {fileID: 8300000, guid: 7cfd330f3cc3a9e4b9aacd735cac1aef, type: 3}
+  - name: splash-strike2
+    audio: {fileID: 8300000, guid: a3d97efc9ff367a4ca5f29fc9a622b56, type: 3}
 --- !u!4 &1306118682
 Transform:
   m_ObjectHideFlags: 0
