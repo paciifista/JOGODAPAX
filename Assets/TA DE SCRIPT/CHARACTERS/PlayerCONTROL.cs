@@ -12,6 +12,7 @@ public class PlayerCONTROL : TouchableGameOBJ
     public LayerMask collectibleLayer;
     Camera cam;
 
+    CollectibleGameOBJ pickupTarget;
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -21,6 +22,11 @@ public class PlayerCONTROL : TouchableGameOBJ
 
     // Update is called once per frame
     void Update()
+    {
+        ProcessInput();
+        UpdateCollect();
+    }
+    void ProcessInput()
     {
         if (Input.GetMouseButtonDown(1))
         {
@@ -36,7 +42,24 @@ public class PlayerCONTROL : TouchableGameOBJ
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, collectibleLayer))
             {
                 Debug.Log("Collectible" + hit.collider.name);
+                pickupTarget = hit.collider.gameObject.GetComponent<CollectibleGameOBJ>();
                 agent.SetDestination(hit.point);
+
+            }
+            else
+            {
+                pickupTarget = null;
+            }
+        }
+    }
+
+    void UpdateCollect()
+    {
+        if (pickupTarget != null)
+        {
+            if (IsInTouch(pickupTarget))
+            {
+                pickupTarget.Pickup();
             }
         }
     }
