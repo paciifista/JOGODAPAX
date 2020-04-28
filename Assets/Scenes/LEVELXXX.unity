@@ -1206,7 +1206,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1354302230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 530eec1217f18b44284de2f0936a2565, type: 3}
+  m_Script: {fileID: 11500000, guid: c8aec1d9746594145a91f03df61734c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   angularSpeed: 6
@@ -1214,7 +1214,7 @@ MonoBehaviour:
   offenceStats:
     damage: 10
     attackSpeed: 2
-  attackRange: 6
+  attackRange: 5
   attackDelay: 0.5
   castTransform: {fileID: 1986987311}
   enemyLayer:
