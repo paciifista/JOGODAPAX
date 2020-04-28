@@ -9,6 +9,7 @@ public class PlayerCONTROL : TouchableGameOBJ
 {
     NavMeshAgent agent;
     public LayerMask WalkAble;
+    public LayerMask collectibleLayer;
     Camera cam;
 
     void Awake()
@@ -21,15 +22,22 @@ public class PlayerCONTROL : TouchableGameOBJ
     // Update is called once per frame
     void Update()
     {
-       if (Input.GetMouseButtonDown(1))
-       {
-           Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-           RaycastHit hit;
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-           if (Physics.Raycast(ray, out hit, Mathf.Infinity, WalkAble))
-           {
-             agent.SetDestination(hit.point);  
-           }
-       }
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, WalkAble))
+            {
+                agent.SetDestination(hit.point);
+            }
+
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, collectibleLayer))
+            {
+                Debug.Log("Collectible" + hit.collider.name);
+                agent.SetDestination(hit.point);
+            }
+        }
     }
 }
