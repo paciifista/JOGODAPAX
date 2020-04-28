@@ -12,7 +12,8 @@ namespace NavGame.Core
         public OffenceStats offenceStats;
 
         public float attackRange = 4f;
-
+        public float attackDelay = 0.5f;
+        public Transform castTransform;
         public string[] enemyLayer;
 
         [SerializeField]
@@ -21,14 +22,21 @@ namespace NavGame.Core
         protected NavMeshAgent agent;
         float cooldown = 0f;
         LayerMask enemyMask;
+        public OnAttackCastEvent onAttackCast;
+        public OnAttackStartEvent onAttackStart;
         float lastAttackTime;
 
-        public OnAttackHitEvent onAttackHit;
+        public OnAttackStrikeEvent onAttackStrike;
 
         protected virtual void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             enemyMask = LayerMask.GetMask(enemyLayer);
+
+            if (castTransform == null)
+            {
+                castTransform = transform;
+            }
         }
 
         protected virtual void Update()
@@ -57,13 +65,33 @@ namespace NavGame.Core
             if (cooldown <= 0f)
             {
                 cooldown = 1f / offenceStats.attackSpeed;
-                target.TakeDamage(offenceStats.damage);
-                if (onAttackHit != null)
+                if (onAttackStart != null)
                 {
-                    onAttackHit(target.transform.position);
+                    onAttackStart();
                 }
+                StartCoroutine(AttackAfterDelay(target, attackDelay));
             }
         }
+
+        IEnumerator AttackAfterDelay(DamageAbleGameOBJ target, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            if (target != null)
+            {
+                if (onAttackCast != null)
+                {
+                    onAttackCast(castTransform.position);
+                }
+
+                target.TakeDamage(offenceStats.damage);
+                if (onAttackStrike != null)
+                {
+                    onAttackStrike(target.damageTransform.position);
+                }
+            }
+
+        }
+
         void DecreaseAttackcooldown()
         {
             if (cooldown == 0f)
@@ -90,7 +118,6 @@ namespace NavGame.Core
             }
         }
 
-
         void OnTriggerExit(Collider other)
         {
             if (enemyMask.Contains(other.gameObject.layer))
@@ -100,19 +127,19 @@ namespace NavGame.Core
             }
         }
 
-       public bool IsInRange(Vector3 point)
-       {
-           float distance = Vector3.Distance(transform.position, point);
-           return distance <= attackRange;
-       }
+        public bool IsInRange(Vector3 point)
+        {
+            float distance = Vector3.Distance(transform.position, point);
+            return distance <= attackRange;
+        }
 
 
         protected override void OnDrawGizmosSelected()
-       {
-           base.OnDrawGizmosSelected();
-           Gizmos.color = Color.red;
-           Gizmos.DrawWireSphere(transform.position, attackRange);
-       }
+        {
+            base.OnDrawGizmosSelected();
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
     }
 
 }
