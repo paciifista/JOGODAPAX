@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using NavGame.Core;
 using NavGame.misskiss;
 
-public class CreepController : AttackGameOBJ
+public class CreepController : InstantAttackerGameOBJ
 {
     DamageAbleGameOBJ finalTarget;
     protected override void Awake()
