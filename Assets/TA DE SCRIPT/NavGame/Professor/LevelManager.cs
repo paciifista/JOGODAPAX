@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using NavGame.Core;
 
 namespace NavGame.misskiss
 {
@@ -10,6 +11,8 @@ namespace NavGame.misskiss
         public static LevelManager instance;
 
         public Action[] actions;
+        public OnActionSelectEvent onActionSelect;
+        public OnActionCancelEvent onActionCancel;
         protected int selectedAction = -1;
         protected virtual void Awake()
         {
@@ -29,19 +32,34 @@ namespace NavGame.misskiss
         }
         public virtual void SelectAction(int actionIndex)
         {
-            Debug.Log("Selected " + actions[actionIndex].prefap.name);
+            CancelAction();
             selectedAction = actionIndex;
+            if (onActionSelect != null)
+            {
+                onActionSelect(actionIndex);
+            }
         }
         public virtual void DoAction(Vector3 point)
         {
-            Debug.Log("DO: " +  actions[selectedAction].prefap.name);
             Instantiate(actions[selectedAction].prefap, point, Quaternion.identity);
+            int index = selectedAction;
+            selectedAction = -1;
+            if (onActionCancel != null)
+            {
+                onActionCancel(index);
+            }
+
         }
         public virtual void CancelAction()
         {
-            if(selectedAction != -1)
+            if (selectedAction != -1)
             {
+                int index = selectedAction;
                 selectedAction = -1;
+                if (onActionCancel != null)
+                {
+                    onActionCancel(index);
+                }
             }
         }
         public bool IsActionSelected()
