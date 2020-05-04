@@ -13,6 +13,7 @@ namespace NavGame.misskiss
         public Action[] actions;
         public OnActionSelectEvent onActionSelect;
         public OnActionCancelEvent onActionCancel;
+        public OnActionCooldownUpdateEvent onActionCooldownUpdate;
         protected int selectedAction = -1;
         protected virtual void Awake()
         {
@@ -44,10 +45,7 @@ namespace NavGame.misskiss
             Instantiate(actions[selectedAction].prefap, point, Quaternion.identity);
             int index = selectedAction;
             selectedAction = -1;
-            if (onActionCancel != null)
-            {
-                onActionCancel(index);
-            }
+            StartCoroutine(ProcessCooldown(index));
 
         }
         public virtual void CancelAction()
@@ -65,6 +63,25 @@ namespace NavGame.misskiss
         public bool IsActionSelected()
         {
             return selectedAction != -1;
+        }
+        IEnumerator ProcessCooldown(int actionIndex)
+        {
+            Action action = actions[actionIndex];
+            action.coolDown = action.waitTime;
+            while (action.coolDown > 0)
+            {
+                if (onActionCooldownUpdate != null)
+                {
+                    onActionCooldownUpdate(actionIndex, action.coolDown, action.waitTime);
+                }
+                yield return null;
+                action.coolDown -= Time.deltaTime;
+            }
+            action.coolDown = 0f;
+            if (onActionCooldownUpdate != null)
+            {
+                onActionCooldownUpdate(actionIndex, action.coolDown, action.waitTime);
+            }
         }
         protected abstract IEnumerator SpawnBad();
 

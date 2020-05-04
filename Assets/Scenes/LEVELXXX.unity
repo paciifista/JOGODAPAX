@@ -2613,12 +2613,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actions:
-  - cost: 6
+  - cost: 5
     prefap: {fileID: 7489073539222223647, guid: 8e72621a967124d43ae2b6d722e610fa,
       type: 3}
     waitTime: 5
     coolDown: 0
-  - cost: 0
+  - cost: 6
     prefap: {fileID: 8673167570679842073, guid: b4b21115f407adb4285040091f18bb48,
       type: 3}
     waitTime: 2
@@ -2663,7 +2663,7 @@ MonoBehaviour:
   - {fileID: 1908813674}
   - {fileID: 506128049}
   - {fileID: 1546590156}
-  actionsCost:
+  actionCosts:
   - {fileID: 1506811403}
   - {fileID: 238403077}
   - {fileID: 317118462}

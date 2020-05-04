@@ -8,13 +8,14 @@ using NavGame.Core;
 public class UIMAN : MonoBehaviour
 {
     public GameObject[] cooldownOBJs;
-    public Text[] actionsCost;
+    public Text[] actionCosts;
     Image[] cooldownImages;
     void Start()
     {
         InitializeUI();
         LevelManager.instance.onActionSelect += OnActionSelect;
         LevelManager.instance.onActionCancel += OnActionCancel;
+        LevelManager.instance.onActionCooldownUpdate += OnActionCooldownUpdate;
     }
     void InitializeUI()
     {
@@ -24,7 +25,7 @@ public class UIMAN : MonoBehaviour
             cooldownImages[i] = cooldownOBJs[i].GetComponent<Image>();
             cooldownImages[i].fillAmount = 0f;
         
-            actionsCost[i].text = "(" + LevelManager.instance.actions[i].cost + ")";
+            actionCosts[i].text = "(" + LevelManager.instance.actions[i].cost + ")";
         }
 
     }
@@ -35,5 +36,11 @@ public class UIMAN : MonoBehaviour
     void OnActionCancel(int actionIndex)
     {
         cooldownImages[actionIndex].fillAmount = 0f;
+    }
+
+    void OnActionCooldownUpdate(int actionIndex, float coolDown, float waitTime)
+    {
+        float percent = coolDown / waitTime;
+        cooldownImages[actionIndex].fillAmount = percent;
     }
 }
