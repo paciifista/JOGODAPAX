@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class LevelXXXMAN : MonoBehaviour
+using NavGame.misskiss;
+public class LevelXXXMAN : LevelManager
 {
     public Transform[] badSpawn;
     public GameObject badPrefab;
@@ -10,13 +10,9 @@ public class LevelXXXMAN : MonoBehaviour
     public float waitTimeFirstWave = 2f;
     public float waiTimeBetweenWaves = 4f;
 
-    void Start()
-    {
-        StartCoroutine(SpawnBad());
-    }
 
     // Update is called once per frame
-    IEnumerator SpawnBad()
+    protected override IEnumerator SpawnBad()
     {
         yield return new WaitForSeconds(waitTimeFirstWave);
         for (int i = 0; i < badWaves; i++ )
