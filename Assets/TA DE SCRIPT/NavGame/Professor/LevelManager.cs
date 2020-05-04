@@ -11,6 +11,7 @@ namespace NavGame.misskiss
         public static LevelManager instance;
 
         public Action[] actions;
+        public string errorSound;
         public OnActionSelectEvent onActionSelect;
         public OnActionCancelEvent onActionCancel;
         public OnActionCooldownUpdateEvent onActionCooldownUpdate;
@@ -33,6 +34,11 @@ namespace NavGame.misskiss
         }
         public virtual void SelectAction(int actionIndex)
         {
+            if (actions[actionIndex].coolDown > 0)
+            {
+                AudioManager.instance.Play(errorSound, PlayerManager.instance.GetPlayer().transform.position);
+                return;
+            }
             CancelAction();
             selectedAction = actionIndex;
             if (onActionSelect != null)

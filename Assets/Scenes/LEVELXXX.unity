@@ -1813,6 +1813,8 @@ MonoBehaviour:
     audio: {fileID: 8300000, guid: a3d97efc9ff367a4ca5f29fc9a622b56, type: 3}
   - name: YES
     audio: {fileID: 8300000, guid: 7c4461ad8fa356741aefa50d5d607b16, type: 3}
+  - name: Baka!
+    audio: {fileID: 8300000, guid: ec319e96ab15b9d4b8e9a00d5369fd5b, type: 3}
 --- !u!4 &1306118682
 Transform:
   m_ObjectHideFlags: 0
@@ -2142,7 +2144,7 @@ GameObject:
   - component: {fileID: 1562463123}
   m_Layer: 0
   m_Name: exp
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2628,6 +2630,7 @@ MonoBehaviour:
       type: 3}
     waitTime: 10
     coolDown: 0
+  errorSound: Baka!
   badSpawn:
   - {fileID: 2041933174}
   badPrefab: {fileID: 6318411929671627670, guid: 09d8e7d9343547e4b9ab61889007bf75,

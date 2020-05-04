@@ -3,24 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace NavGame.misskiss
 {
-public class PlayerManager : MonoBehaviour
-{
-    public static PlayerManager instance;
+    public class PlayerManager : MonoBehaviour
+    {
+        public static PlayerManager instance;
 
-    void Awake(){
-if (instance == null)
-{
-    instance = this;
-}
-else {
-    Destroy (gameObject);
+        void Awake()
+        {
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
 
-}
+            }
+        }
+        public GameObject GetPlayer()
+        {
+            return GameObject.FindGameObjectWithTag("Player");
+        }
+
     }
-public GameObject GetPlayer()
-{
-    return GameObject.FindGameObjectWithTag("Player");
-}
-
-   }
 }
