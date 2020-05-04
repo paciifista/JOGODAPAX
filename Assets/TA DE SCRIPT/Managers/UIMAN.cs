@@ -8,6 +8,7 @@ using NavGame.Core;
 public class UIMAN : MonoBehaviour
 {
     public GameObject[] cooldownOBJs;
+    public Text[] actionsCost;
     Image[] cooldownImages;
     void Start()
     {
@@ -22,6 +23,8 @@ public class UIMAN : MonoBehaviour
         {
             cooldownImages[i] = cooldownOBJs[i].GetComponent<Image>();
             cooldownImages[i].fillAmount = 0f;
+        
+            actionsCost[i].text = "(" + LevelManager.instance.actions[i].cost + ")";
         }
 
     }
