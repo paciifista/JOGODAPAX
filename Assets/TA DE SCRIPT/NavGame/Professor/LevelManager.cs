@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using NavGame.Core;
+using NavGame.Models;
 
 namespace NavGame.misskiss
 {
@@ -15,7 +16,11 @@ namespace NavGame.misskiss
         public OnActionSelectEvent onActionSelect;
         public OnActionCancelEvent onActionCancel;
         public OnActionCooldownUpdateEvent onActionCooldownUpdate;
+        public OnResourceUpdateEvent onResourceUpdate;
         protected int selectedAction = -1;
+        protected LevelData levelData = new LevelData();
+
+
         protected virtual void Awake()
         {
             if (instance == null)
@@ -32,6 +37,17 @@ namespace NavGame.misskiss
         {
             StartCoroutine(SpawnBad());
         }
+
+        public virtual void AddResource(int amount)
+        {
+            levelData.AddCoins(amount);
+            if (onResourceUpdate != null)
+            {
+                onResourceUpdate(levelData.CointCount);
+            }
+        }
+
+
         public virtual void SelectAction(int actionIndex)
         {
             if (actions[actionIndex].coolDown > 0)

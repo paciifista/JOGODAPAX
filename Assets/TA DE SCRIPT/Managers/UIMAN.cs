@@ -7,15 +7,24 @@ using NavGame.Core;
 
 public class UIMAN : MonoBehaviour
 {
+    public Text coinText;
     public GameObject[] cooldownOBJs;
     public Text[] actionCosts;
     Image[] cooldownImages;
-    void Start()
+    
+    void Awake()
     {
-        InitializeUI();
         LevelManager.instance.onActionSelect += OnActionSelect;
         LevelManager.instance.onActionCancel += OnActionCancel;
         LevelManager.instance.onActionCooldownUpdate += OnActionCooldownUpdate;
+        LevelManager.instance.onResourceUpdate += OnResourceUpdateEvent;   
+    }
+    
+    
+    
+    void Start()
+    {
+        InitializeUI();
     }
     void InitializeUI()
     {
@@ -42,5 +51,10 @@ public class UIMAN : MonoBehaviour
     {
         float percent = coolDown / waitTime;
         cooldownImages[actionIndex].fillAmount = percent;
+    }
+
+    void OnResourceUpdateEvent(int currentAmount)
+    {
+        coinText.text = "x" + currentAmount; 
     }
 }

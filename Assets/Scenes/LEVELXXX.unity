@@ -349,7 +349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 69.9, y: -17}
+  m_AnchoredPosition: {x: 69.8999, y: -17}
   m_SizeDelta: {x: 164, y: 53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &115912476
@@ -1305,7 +1305,7 @@ GameObject:
   - component: {fileID: 558236211}
   - component: {fileID: 558236210}
   m_Layer: 5
-  m_Name: Image
+  m_Name: coinImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1796,7 +1796,7 @@ GameObject:
   - component: {fileID: 822557258}
   - component: {fileID: 822557257}
   m_Layer: 5
-  m_Name: Text
+  m_Name: coinText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3271,6 +3271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37941fd55e1192647b24bd55dc93f741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinText: {fileID: 822557257}
   cooldownOBJs:
   - {fileID: 1908813674}
   - {fileID: 506128049}
