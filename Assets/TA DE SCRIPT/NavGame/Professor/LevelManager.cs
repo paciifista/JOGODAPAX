@@ -20,6 +20,7 @@ namespace NavGame.misskiss
         protected int selectedAction = -1;
         protected LevelData levelData = new LevelData();
         public OnReportableErrorEvent onReportableError;
+        public OnWaveUpdateEvent onWaveUpdate;
 
         protected virtual void Awake()
         {
@@ -33,7 +34,7 @@ namespace NavGame.misskiss
             }
         }
 
-        void Start()
+        protected virtual void Start()
         {
             StartCoroutine(SpawnBad());
         }
