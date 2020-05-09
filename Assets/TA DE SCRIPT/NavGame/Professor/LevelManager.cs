@@ -13,6 +13,7 @@ namespace NavGame.misskiss
 
         public Action[] actions;
         public string errorSound;
+        public string Easter;
         public OnActionSelectEvent onActionSelect;
         public OnActionCancelEvent onActionCancel;
         public OnActionCooldownUpdateEvent onActionCooldownUpdate;
@@ -21,6 +22,7 @@ namespace NavGame.misskiss
         protected LevelData levelData = new LevelData();
         public OnReportableErrorEvent onReportableError;
         public OnWaveUpdateEvent onWaveUpdate;
+        public OnWaveCountdownEvent onWaveCountdown;
 
         protected virtual void Awake()
         {

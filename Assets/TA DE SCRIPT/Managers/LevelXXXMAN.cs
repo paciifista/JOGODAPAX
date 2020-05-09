@@ -23,7 +23,17 @@ public class LevelXXXMAN : LevelManager
     // Update is called once per frame
     protected override IEnumerator SpawnBad()
     {
-        yield return new WaitForSeconds(waitTimeFirstWave);
+        float wait = waitTimeFirstWave;
+        while (wait > 0)
+        {
+            if (onWaveCountdown != null)
+            {
+                onWaveCountdown(wait);
+            }
+            wait -= Time.deltaTime;
+            yield return null;
+        }
+
         for (int i = 0; i < badWaves; i++)
         {
             for (int j = 0; j < badSpawn.Length; j++)
@@ -31,7 +41,7 @@ public class LevelXXXMAN : LevelManager
 
                 for (int k = 0; k < monstersPerWave; k++)
                 {
-                    Vector3 offset= new Vector3(Random.Range(-0.1f, 0.1f), 0f, Random.Range(-0.1f ,0.1f));
+                    Vector3 offset = new Vector3(Random.Range(-0.1f, 0.1f), 0f, Random.Range(-0.1f, 0.1f));
                     Instantiate(badPrefab, badSpawn[j].position + offset, Quaternion.identity);
                 }
 
@@ -39,7 +49,7 @@ public class LevelXXXMAN : LevelManager
             }
             if (onWaveUpdate != null)
             {
-                onWaveUpdate(badWaves, i+1);
+                onWaveUpdate(badWaves, i + 1);
             }
             yield return new WaitForSeconds(waiTimeBetweenWaves);
         }

@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 115912477}
   - component: {fileID: 115912476}
   m_Layer: 5
-  m_Name: Next Wave
+  m_Name: WaveNext Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -921,7 +921,7 @@ GameObject:
   - component: {fileID: 460643144}
   - component: {fileID: 460643143}
   m_Layer: 5
-  m_Name: FinalCountDown
+  m_Name: WaveFinalCountDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3318,13 +3318,14 @@ MonoBehaviour:
     waitTime: 10
     coolDown: 0
   errorSound: Baka!
+  Easter: 
   badSpawn:
   - {fileID: 2041933174}
   badPrefab: {fileID: 6318411929671627670, guid: 09d8e7d9343547e4b9ab61889007bf75,
     type: 3}
   badWaves: 3
   monstersPerWave: 2
-  waitTimeFirstWave: 2
+  waitTimeFirstWave: 5
   waiTimeBetweenWaves: 4
 --- !u!114 &1913650761
 MonoBehaviour:
@@ -3363,6 +3364,7 @@ MonoBehaviour:
   - {fileID: 1506811403}
   - {fileID: 238403077}
   - {fileID: 317118462}
+  waveCountdownText: {fileID: 460643143}
 --- !u!1 &2041933173
 GameObject:
   m_ObjectHideFlags: 0

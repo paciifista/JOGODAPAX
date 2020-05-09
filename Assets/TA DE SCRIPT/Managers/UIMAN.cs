@@ -16,6 +16,7 @@ public class UIMAN : MonoBehaviour
     public GameObject[] cooldownOBJs;
     public Text[] actionCosts;
     Image[] cooldownImages;
+    public Text waveCountdownText;
     
     void Awake()
     {
@@ -25,7 +26,9 @@ public class UIMAN : MonoBehaviour
         LevelManager.instance.onResourceUpdate += OnResourceUpdate;   
         LevelManager.instance.onReportableError += OnReportableError;
         LevelManager.instance.onWaveUpdate += OnWaveUpdate;
+        LevelManager.instance.onWaveCountdown += OnWaveCountdown;
     }
+
     
     
     
@@ -75,9 +78,14 @@ public class UIMAN : MonoBehaviour
     {
         waveCountText.text = currentWave + "/" + totalWaves;
     }
+    void OnWaveCountdown (float remainingTime)
+    {
+        waveCountdownText.text = remainingTime.ToString("F1");
+    }
     IEnumerator TurnOffError()
     {
         yield return new WaitForSeconds(errorTime);
         errorPanel.SetActive(false);
     }
+    
 }
