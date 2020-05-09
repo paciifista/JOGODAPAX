@@ -19,7 +19,7 @@ namespace NavGame.misskiss
         public OnResourceUpdateEvent onResourceUpdate;
         protected int selectedAction = -1;
         protected LevelData levelData = new LevelData();
-
+        public OnReportableErrorEvent onReportableError;
 
         protected virtual void Awake()
         {
@@ -50,25 +50,49 @@ namespace NavGame.misskiss
 
         public virtual void SelectAction(int actionIndex)
         {
-            if (actions[actionIndex].coolDown > 0)
+            try
+            {
+
+                levelData.ValidadeCoinAmount(actions[actionIndex].cost);
+                if (actions[actionIndex].coolDown > 0)
+                {
+                    AudioManager.instance.Play(errorSound, PlayerManager.instance.GetPlayer().transform.position);
+                    return;
+                }
+                CancelAction();
+                selectedAction = actionIndex;
+                if (onActionSelect != null)
+                {
+                    onActionSelect(actionIndex);
+                }
+            }
+            catch (InvalidOperationException e)
             {
                 AudioManager.instance.Play(errorSound, PlayerManager.instance.GetPlayer().transform.position);
-                return;
-            }
-            CancelAction();
-            selectedAction = actionIndex;
-            if (onActionSelect != null)
-            {
-                onActionSelect(actionIndex);
+                if (onReportableError != null)
+                    onReportableError(e.Message);
             }
         }
         public virtual void DoAction(Vector3 point)
         {
-            Instantiate(actions[selectedAction].prefap, point, Quaternion.identity);
-            int index = selectedAction;
-            selectedAction = -1;
-            StartCoroutine(ProcessCooldown(index));
-
+            try
+            {
+                levelData.ConsumeCoins(actions[selectedAction].cost);
+                Instantiate(actions[selectedAction].prefap, point, Quaternion.identity);
+                if (onResourceUpdate != null)
+                {
+                    onResourceUpdate(levelData.CointCount);
+                }
+                int index = selectedAction;
+                selectedAction = -1;
+                StartCoroutine(ProcessCooldown(index));
+            }
+            catch (InvalidOperationException e)
+            {
+                AudioManager.instance.Play(errorSound, PlayerManager.instance.GetPlayer().transform.position);
+                if (onReportableError != null)
+                    onReportableError(e.Message);
+            }
         }
         public virtual void CancelAction()
         {

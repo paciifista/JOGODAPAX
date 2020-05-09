@@ -7,6 +7,9 @@ using NavGame.Core;
 
 public class UIMAN : MonoBehaviour
 {
+    public GameObject errorPanel;
+    public Text errorText;
+    public float errorTime = 1.5f;
     public Text coinText;
     public GameObject[] cooldownOBJs;
     public Text[] actionCosts;
@@ -17,7 +20,8 @@ public class UIMAN : MonoBehaviour
         LevelManager.instance.onActionSelect += OnActionSelect;
         LevelManager.instance.onActionCancel += OnActionCancel;
         LevelManager.instance.onActionCooldownUpdate += OnActionCooldownUpdate;
-        LevelManager.instance.onResourceUpdate += OnResourceUpdateEvent;   
+        LevelManager.instance.onResourceUpdate += OnResourceUpdate;   
+        LevelManager.instance.onReportableError += OnReportableError;
     }
     
     
@@ -36,6 +40,7 @@ public class UIMAN : MonoBehaviour
         
             actionCosts[i].text = "(" + LevelManager.instance.actions[i].cost + ")";
         }
+        errorPanel.SetActive(false);
 
     }
     void OnActionSelect(int actionIndex)
@@ -53,8 +58,19 @@ public class UIMAN : MonoBehaviour
         cooldownImages[actionIndex].fillAmount = percent;
     }
 
-    void OnResourceUpdateEvent(int currentAmount)
+    void OnResourceUpdate(int currentAmount)
     {
         coinText.text = "x" + currentAmount; 
+    }
+    void OnReportableError(string message)
+    {
+        errorText.text = message;
+        errorPanel.SetActive(true);
+        StartCoroutine(TurnOffError());
+    }
+    IEnumerator TurnOffError()
+    {
+        yield return new WaitForSeconds(errorTime);
+        errorPanel.SetActive(false);
     }
 }
