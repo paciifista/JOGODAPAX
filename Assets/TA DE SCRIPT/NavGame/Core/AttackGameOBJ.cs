@@ -15,6 +15,7 @@ namespace NavGame.Core
         public float attackDelay = 0.5f;
         public Transform castTransform;
         public string[] enemyLayer;
+        public bool IsInCombat {get; private set;}
 
         [SerializeField]
         protected List<DamageAbleGameOBJ> enemiesToAttack = new List<DamageAbleGameOBJ>();
@@ -55,9 +56,11 @@ namespace NavGame.Core
                     agent.ResetPath();
                     FaceObjectFrame(enemiesToAttack[0].gameObject.transform);
                     AttackOnCooldown(enemiesToAttack[0]);
+                    IsInCombat = true;
+                    return;
                 }
             }
-
+            IsInCombat = false;
         }
 
         public void AttackOnCooldown(DamageAbleGameOBJ target)
