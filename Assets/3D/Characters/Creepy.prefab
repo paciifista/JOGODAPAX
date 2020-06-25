@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 7005367237199527649}
   - component: {fileID: 6493261555485836729}
   - component: {fileID: 3167977982193443687}
+  - component: {fileID: 7813777676857921577}
   m_Layer: 0
   m_Name: Creepy
   m_TagString: Untagged
@@ -225,6 +226,19 @@ MonoBehaviour:
   damageEffects: {fileID: 391039487054630447, guid: bd8a021905d9c52418cb2befc0178554,
     type: 3}
   dieEffect: {fileID: 0}
+--- !u!114 &7813777676857921577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6318411929671627670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76064a8784ae1204eac9df5b67702d56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothness: 0.1
 --- !u!1001 &4909539209005100798
 PrefabInstance:
   m_ObjectHideFlags: 0
