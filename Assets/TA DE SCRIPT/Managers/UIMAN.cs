@@ -10,6 +10,7 @@ public class UIMAN : MonoBehaviour
 
     public GameObject errorPanel;
     public GameObject defeatPanel;
+    public GameObject victoryPanel;
     public Text errorText;
     public float errorTime = 1.5f;
     public Text coinText;
@@ -29,6 +30,7 @@ public class UIMAN : MonoBehaviour
         LevelManager.instance.onWaveUpdate += OnWaveUpdate;
         LevelManager.instance.onWaveCountdown += OnWaveCountdown;
         LevelManager.instance.onDefeat += OnDefeat;
+        LevelManager.instance.onVictory += OnVictory;
     }
 
     
@@ -101,6 +103,13 @@ public class UIMAN : MonoBehaviour
         LevelManager.instance.Resume();
         NavigationManager.instance.LoadScene("Home");
     }
+
+    public void OnVictory()
+    {
+        LevelManager.instance.Pause();
+        victoryPanel.SetActive(true);
+    }
+
 
     IEnumerator TurnOffError()
     {

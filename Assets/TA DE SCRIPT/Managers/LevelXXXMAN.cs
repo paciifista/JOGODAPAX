@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using NavGame.misskiss;
+using NavGame.Core;
 public class LevelXXXMAN : LevelManager
 {
     public Transform[] badSpawn;
@@ -10,13 +11,25 @@ public class LevelXXXMAN : LevelManager
     public int monstersPerWave = 2;
     public float waitTimeFirstWave = 2f;
     public float waiTimeBetweenWaves = 4f;
+    int totalCreep;
 
     protected override void Start()
     {
         base.Start();
+
+        totalCreep = badWaves*monstersPerWave;
+
         if (onWaveUpdate != null)
         {
             onWaveUpdate(badWaves, 0);
+        }
+    }
+    void OnCreepDied()
+    {
+        totalCreep--;
+        if(totalCreep == 0)
+        {
+            EmitVictoryEvent();
         }
     }
 
@@ -42,7 +55,10 @@ public class LevelXXXMAN : LevelManager
                 for (int k = 0; k < monstersPerWave; k++)
                 {
                     Vector3 offset = new Vector3(Random.Range(-0.1f, 0.1f), 0f, Random.Range(-0.1f, 0.1f));
-                    Instantiate(badPrefab, badSpawn[j].position + offset, Quaternion.identity);
+                    
+                    GameObject obj = Instantiate(badPrefab, badSpawn[j].position + offset, Quaternion.identity) as GameObject;
+                    DamageAbleGameOBJ damageable = obj.GetComponent<DamageAbleGameOBJ>();
+                    damageable.onDied += OnCreepDied;
                 }
 
 

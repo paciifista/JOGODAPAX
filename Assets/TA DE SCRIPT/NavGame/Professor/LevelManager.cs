@@ -24,7 +24,8 @@ namespace NavGame.misskiss
         public OnWaveUpdateEvent onWaveUpdate;
         public OnWaveCountdownEvent onWaveCountdown;
         public OnDefeatEvent onDefeat;
-        public bool isPaused {get; private set;} = false;
+        public OnVictoryEvent onVictory;
+        public bool isPaused { get; private set; } = false;
 
         DamageAbleGameOBJ nexus;
 
@@ -49,6 +50,7 @@ namespace NavGame.misskiss
 
         protected virtual void Start()
         {
+            AddResource(18);
             StartCoroutine(SpawnBad());
         }
 
@@ -149,6 +151,14 @@ namespace NavGame.misskiss
             if (onDefeat != null)
             {
                 onDefeat();
+            }
+        }
+
+        protected void EmitVictoryEvent()
+        {
+            if (onVictory != null)
+            {
+                onVictory();
             }
         }
 
