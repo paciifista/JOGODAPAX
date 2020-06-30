@@ -23,6 +23,10 @@ namespace NavGame.misskiss
         public OnReportableErrorEvent onReportableError;
         public OnWaveUpdateEvent onWaveUpdate;
         public OnWaveCountdownEvent onWaveCountdown;
+        public OnDefeatEvent onDefeat;
+        public bool isPaused {get; private set;} = false;
+
+        DamageAbleGameOBJ nexus;
 
         protected virtual void Awake()
         {
@@ -34,6 +38,13 @@ namespace NavGame.misskiss
             {
                 Destroy(gameObject);
             }
+            GameObject obj = GameObject.FindWithTag("Finish");
+            nexus = obj.GetComponent<DamageAbleGameOBJ>();
+        }
+
+        void OnEnable()
+        {
+            nexus.onDied += EmitDefeatEvent;
         }
 
         protected virtual void Start()
@@ -132,6 +143,26 @@ namespace NavGame.misskiss
                 onActionCooldownUpdate(actionIndex, action.coolDown, action.waitTime);
             }
         }
+
+        void EmitDefeatEvent()
+        {
+            if (onDefeat != null)
+            {
+                onDefeat();
+            }
+        }
+
+        public void Pause()
+        {
+            isPaused = true;
+            Time.timeScale = 0f;
+        }
+        public void Resume()
+        {
+            isPaused = false;
+            Time.timeScale = 1f;
+        }
+
         protected abstract IEnumerator SpawnBad();
 
         [Serializable]

@@ -9,6 +9,7 @@ public class UIMAN : MonoBehaviour
 {
 
     public GameObject errorPanel;
+    public GameObject defeatPanel;
     public Text errorText;
     public float errorTime = 1.5f;
     public Text coinText;
@@ -18,7 +19,7 @@ public class UIMAN : MonoBehaviour
     Image[] cooldownImages;
     public Text waveCountdownText;
     
-    void Awake()
+    void OnEnable()
     {
         LevelManager.instance.onActionSelect += OnActionSelect;
         LevelManager.instance.onActionCancel += OnActionCancel;
@@ -27,6 +28,7 @@ public class UIMAN : MonoBehaviour
         LevelManager.instance.onReportableError += OnReportableError;
         LevelManager.instance.onWaveUpdate += OnWaveUpdate;
         LevelManager.instance.onWaveCountdown += OnWaveCountdown;
+        LevelManager.instance.onDefeat += OnDefeat;
     }
 
     
@@ -82,6 +84,24 @@ public class UIMAN : MonoBehaviour
     {
         waveCountdownText.text = remainingTime.ToString("F1");
     }
+
+    void OnDefeat ()
+    {
+        LevelManager.instance.Pause();
+        defeatPanel.SetActive(true);
+    }
+
+    public void OnBtReloadClick()
+    {
+        LevelManager.instance.Resume();
+        NavigationManager.instance.ReloadScene();
+    }
+    public void OnBtExitClick()
+    {
+        LevelManager.instance.Resume();
+        NavigationManager.instance.LoadScene("Home");
+    }
+
     IEnumerator TurnOffError()
     {
         yield return new WaitForSeconds(errorTime);
