@@ -30,6 +30,36 @@ Transform:
   m_Father: {fileID: 8673167570679842077}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3223385833224564733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 632441100417746168}
+  m_Layer: 0
+  m_Name: CastPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &632441100417746168
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3223385833224564733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.02, y: 0.998, z: 0.469}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8673167570679842077}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3816868111940845384
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,8 +105,8 @@ GameObject:
   - component: {fileID: 5677585289406204014}
   - component: {fileID: 8497860547340579638}
   - component: {fileID: 8673167570679842054}
-  - component: {fileID: 8673167570679842052}
-  - component: {fileID: 7904715199722572368}
+  - component: {fileID: 7402986864788443908}
+  - component: {fileID: 4181032672725032861}
   m_Layer: 0
   m_Name: Infantry
   m_TagString: Untagged
@@ -98,6 +128,7 @@ Transform:
   - {fileID: 7545443544014933}
   - {fileID: 3816868111940845385}
   - {fileID: 5280539971651903359}
+  - {fileID: 632441100417746168}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -203,7 +234,7 @@ MonoBehaviour:
   damageEffects: {fileID: 391039487054630447, guid: bd8a021905d9c52418cb2befc0178554,
     type: 3}
   dieEffect: {fileID: 0}
---- !u!114 &8673167570679842052
+--- !u!114 &7402986864788443908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,7 +243,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8673167570679842073}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7168a1503aea14f4096eda9ad306ef81, type: 3}
+  m_Script: {fileID: 11500000, guid: 530eec1217f18b44284de2f0936a2565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   angularSpeed: 6
@@ -222,11 +253,13 @@ MonoBehaviour:
     attackSpeed: 2
   attackRange: 4
   attackDelay: 0.5
-  castTransform: {fileID: 0}
+  castTransform: {fileID: 632441100417746168}
   enemyLayer:
   - Creep
   enemiesToAttack: []
---- !u!114 &7904715199722572368
+  projectilePrefab: {fileID: 6377903556459214095, guid: ff293fcf8cf54c3419a38be559c162ea,
+    type: 3}
+--- !u!114 &4181032672725032861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
